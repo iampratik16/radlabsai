@@ -3,44 +3,67 @@
 import { motion } from "framer-motion";
 import { Typography } from "@/components/ui/typography";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { BrainCircuit, Code2, Globe2, Sparkles, Network, ArrowRight } from "lucide-react";
+import {
+    BrainCircuit, Code2, Globe2, Sparkles, Network, ArrowRight,
+    Megaphone, SearchCheck, Star
+} from "lucide-react";
 
-const services = [
+// ── Hero / flagship services (AI-first) ─────────────────────────────────────
+const heroServices = [
     {
         title: "Artificial Intelligence",
-        description: "Custom ML models, predictive analytics, and enterprise data solutions.",
+        badge: "Core Offering",
+        description:
+            "End-to-end AI architecture: custom ML models, LLM integration, RAG pipelines, agentic workflow automation, and enterprise data solutions. We don't bolt AI on — we engineer it from the ground up.",
+        bullets: ["Custom LLM & RAG Systems", "Agentic Workflow Automation", "Predictive Analytics", "AI Governance & Observability"],
         icon: BrainCircuit,
+        span: "lg:col-span-2",
+        accent: true,
     },
     {
+        title: "AI Consulting",
+        badge: "Core Offering",
+        description:
+            "Strategic advisory for enterprises ready to operationalise AI. From ROI-driven roadmaps to responsible AI governance frameworks — we translate technical possibility into business reality.",
+        bullets: ["AI Readiness Audits", "Implementation Roadmaps", "Vendor & Stack Selection", "Risk & Compliance Advisory"],
+        icon: Network,
+        span: "lg:col-span-1",
+        accent: true,
+    },
+];
+
+// ── Supporting services ──────────────────────────────────────────────────────
+const supportingServices = [
+    {
         title: "Software Development",
-        description: "Scalable, high-performance backends and complex web applications.",
+        description: "Scalable, high-performance backends, APIs, and complex full-stack web applications built for production from day one.",
         icon: Code2,
     },
     {
         title: "Website Development",
-        description: "24-hour AI-powered delivery of stunning, modern corporate platforms.",
+        description: "24-hour AI-powered delivery of stunning, conversion-optimised corporate platforms — designed and shipped at machine speed.",
         icon: Globe2,
     },
     {
-        title: "Branding",
-        description: "Premium digital identities that position you as an industry leader.",
-        icon: Sparkles,
+        title: "AI-Powered Digital Marketing",
+        description: "Intelligent campaigns that learn, adapt and optimise in real time — AI content generation, audience targeting, and performance analytics fused into one growth engine.",
+        icon: Megaphone,
     },
     {
-        title: "AI Consulting",
-        description: "Strategic guidance on integrating AI securely within enterprise constraints.",
-        icon: Network,
+        title: "SEO & Search Intelligence",
+        description: "AI-driven keyword strategy, semantic content optimisation, and technical SEO — engineered to dominate search rankings and build lasting organic authority.",
+        icon: SearchCheck,
+    },
+    {
+        title: "Branding",
+        description: "Premium digital identities — visual systems, messaging frameworks, and brand strategy — that position you as an undeniable industry leader.",
+        icon: Sparkles,
     },
 ];
 
 const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-        },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants = {
@@ -50,46 +73,63 @@ const itemVariants = {
 
 export function ServicesGrid() {
     return (
-        <section className="py-32 relative group/section" id="services">
+        <section className="py-32 relative" id="services">
             <div className="max-w-7xl mx-auto px-6">
+
+                {/* Section header */}
                 <div className="flex flex-col items-center mb-16 text-center">
                     <Typography variant="h2" className="text-white">
                         What We Build
                     </Typography>
                     <Typography variant="p" className="max-w-2xl mt-4">
-                        We deliver production-ready systems combining beautiful interfaces with heavy computational power.
+                        We deliver production-ready intelligent systems — combining beautiful interfaces with serious computational power.
                     </Typography>
                 </div>
 
+                {/* ── Hero row: AI + AI Consulting ─────────────────────────── */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    viewport={{ once: true, margin: "-80px" }}
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6"
                 >
-                    {services.map((service, index) => {
-                        const Icon = service.icon;
-                        // Make the first card span 2 cols on lg screens to create dynamic grid
-                        const isFirst = index === 0;
+                    {heroServices.map((svc) => {
+                        const Icon = svc.icon;
                         return (
-                            <motion.div key={service.title} variants={itemVariants} className={isFirst ? "lg:col-span-2" : ""}>
-                                <Card className="h-full group hover:border-brand-red/50 hover:bg-white/10 transition-all duration-500 overflow-hidden relative">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 to-brand-darkred/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <motion.div key={svc.title} variants={itemVariants} className={svc.span}>
+                                <Card className="h-full group relative overflow-hidden border-brand-red/30 bg-white/[0.04] hover:bg-white/[0.08] hover:border-brand-red/60 transition-all duration-500">
+                                    {/* Ambient glow */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-brand-red/10 via-transparent to-transparent pointer-events-none" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 to-brand-darkred/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                                     <CardHeader>
-                                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-brand-red/50 transition-all duration-300">
-                                            <Icon className="w-6 h-6 text-brand-red group-hover:text-brand-darkred transition-colors duration-300" />
+                                        <div className="flex items-start justify-between mb-6">
+                                            <div className="w-14 h-14 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-red/20 transition-all duration-300">
+                                                <Icon className="w-7 h-7 text-brand-red" />
+                                            </div>
+                                            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-red bg-brand-red/10 border border-brand-red/20 px-3 py-1 rounded-full">
+                                                <Star className="w-2.5 h-2.5" />
+                                                {svc.badge}
+                                            </span>
                                         </div>
-                                        <CardTitle className="text-white group-hover:text-brand-red transition-colors duration-300">
-                                            {service.title}
+                                        <CardTitle className="text-white text-xl group-hover:text-brand-red transition-colors duration-300">
+                                            {svc.title}
                                         </CardTitle>
                                     </CardHeader>
-                                    <CardContent>
-                                        <p className="text-neutral-400 leading-relaxed font-sans group-hover:text-neutral-300 transition-colors duration-300">
-                                            {service.description}
-                                        </p>
 
+                                    <CardContent>
+                                        <p className="text-neutral-400 leading-relaxed font-sans group-hover:text-neutral-300 transition-colors duration-300 mb-6">
+                                            {svc.description}
+                                        </p>
+                                        <ul className="space-y-2">
+                                            {svc.bullets.map((b) => (
+                                                <li key={b} className="flex items-center gap-2 text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">
+                                                    <span className="w-1 h-1 rounded-full bg-brand-red shrink-0" />
+                                                    {b}
+                                                </li>
+                                            ))}
+                                        </ul>
                                         <div className="mt-8 flex items-center text-sm font-medium text-brand-red opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                                             Learn more <ArrowRight className="ml-1 w-4 h-4" />
                                         </div>
@@ -99,6 +139,52 @@ export function ServicesGrid() {
                         );
                     })}
                 </motion.div>
+
+                {/* Divider label */}
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="h-px flex-1 bg-white/8" />
+                    <span className="text-xs font-semibold tracking-widest uppercase text-neutral-500">Supporting Services</span>
+                    <div className="h-px flex-1 bg-white/8" />
+                </div>
+
+                {/* ── Supporting services grid ──────────────────────────────── */}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-80px" }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
+                    {supportingServices.map((svc, index) => {
+                        const Icon = svc.icon;
+                        // Give first supporting card a wider span so 5 items fill the grid cleanly (2+1+1+1 = nope, just do 2+3)
+                        const isWide = index === 0;
+                        return (
+                            <motion.div key={svc.title} variants={itemVariants} className={isWide ? "md:col-span-2 lg:col-span-1" : ""}>
+                                <Card className="h-full group hover:border-brand-red/40 hover:bg-white/10 transition-all duration-500 overflow-hidden relative">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 to-brand-darkred/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                    <CardHeader>
+                                        <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:border-brand-red/40 transition-all duration-300">
+                                            <Icon className="w-5 h-5 text-brand-red" />
+                                        </div>
+                                        <CardTitle className="text-white group-hover:text-brand-red transition-colors duration-300 text-base">
+                                            {svc.title}
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <p className="text-neutral-400 leading-relaxed font-sans text-sm group-hover:text-neutral-300 transition-colors duration-300">
+                                            {svc.description}
+                                        </p>
+                                        <div className="mt-6 flex items-center text-sm font-medium text-brand-red opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                                            Learn more <ArrowRight className="ml-1 w-4 h-4" />
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+
             </div>
         </section>
     );

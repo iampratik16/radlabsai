@@ -12,7 +12,7 @@ const navLinks = [
     { name: "AI Capabilities", href: "/ai-capabilities" },
     { name: "Industries", href: "/industries" },
     { name: "Our Approach", href: "/approach" },
-    { name: "Contact", href: "/contact" },
+    { name: "Projects", href: "/projects" },
 ];
 
 export function Header() {

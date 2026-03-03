@@ -71,9 +71,6 @@ export function AICapabilities() {
                         <Typography variant="h2" className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight">
                             More Than Just Models
                         </Typography>
-                        <p className="text-xl md:text-2xl text-neutral-400 max-w-3xl mx-auto font-sans font-light">
-                            We don't just wrap APIs. We architect custom layers of logic, grounding LLMs in your specific enterprise reality.
-                        </p>
                     </motion.div>
                 </div>
             </div>
@@ -138,80 +135,84 @@ export function AICapabilities() {
                                     </div>
                                 </motion.div>
 
-                                {/* Visual Diagram Side */}
+                                {/* Visual Diagram Side (Completely Redesigned for Clarity & Coolness) */}
                                 <motion.div
                                     className={`relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl overflow-hidden flex items-center justify-center group ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
-                                    initial={{ opacity: 0, scale: 0.9, y: 50 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    viewport={{ once: false, amount: 0.4 }}
-                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true, amount: 0.4 }}
+                                    transition={{ duration: 0.8 }}
                                 >
                                     {/* Tech Grid Background */}
-                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)]" />
+                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_10%,transparent_100%)]" />
 
-                                    {/* Central Node */}
+                                    {/* SVGs for Connections */}
+                                    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+                                        {/* Center to Top Left */}
+                                        <g>
+                                            <path d="M 50% 50% Q 25% 50% 25% 25%" fill="none" className={cap.stroke} strokeWidth="2" strokeDasharray="5, 5" opacity="0.3" />
+                                            <motion.circle r="3" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
+                                                <animateMotion dur="3s" repeatCount="indefinite" path="M 50% 50% Q 25% 50% 25% 25%" />
+                                            </motion.circle>
+                                        </g>
+
+                                        {/* Center to Top Right */}
+                                        <g>
+                                            <path d="M 50% 50% Q 75% 50% 75% 25%" fill="none" className={cap.stroke} strokeWidth="2" strokeDasharray="5, 5" opacity="0.3" />
+                                            <motion.circle r="3" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
+                                                <animateMotion dur="4s" repeatCount="indefinite" path="M 50% 50% Q 75% 50% 75% 25%" />
+                                            </motion.circle>
+                                        </g>
+
+                                        {/* Center to Bottom */}
+                                        <g>
+                                            <path d="M 50% 50% C 50% 65% 50% 75% 50% 85%" fill="none" className={cap.stroke} strokeWidth="2" strokeDasharray="5, 5" opacity="0.3" />
+                                            <motion.circle r="3" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
+                                                <animateMotion dur="2.5s" repeatCount="indefinite" path="M 50% 50% C 50% 65% 50% 75% 50% 85%" />
+                                            </motion.circle>
+                                        </g>
+                                    </svg>
+
+                                    {/* Sub-Nodes (Endpoints of the pipelines) */}
+                                    <div className="absolute top-[25%] left-[25%] -translate-x-1/2 -translate-y-1/2 z-10">
+                                        <div className="w-12 h-12 rounded-xl bg-black/80 border border-white/10 backdrop-blur-md flex items-center justify-center group-hover:border-brand-red/30 transition-colors shadow-xl">
+                                            <Database className="w-5 h-5 text-neutral-400 group-hover:text-white transition-colors" />
+                                        </div>
+                                    </div>
+
+                                    <div className="absolute top-[25%] left-[75%] -translate-x-1/2 -translate-y-1/2 z-10">
+                                        <div className="w-12 h-12 rounded-xl bg-black/80 border border-white/10 backdrop-blur-md flex items-center justify-center group-hover:border-brand-red/30 transition-colors shadow-xl">
+                                            <Network className="w-5 h-5 text-neutral-400 group-hover:text-white transition-colors" />
+                                        </div>
+                                    </div>
+
+                                    <div className="absolute top-[85%] left-[50%] -translate-x-1/2 -translate-y-1/2 z-10">
+                                        <div className="w-14 h-14 rounded-full bg-black/80 border border-white/10 backdrop-blur-md flex items-center justify-center group-hover:border-brand-red/30 transition-colors shadow-xl">
+                                            <div className="w-3 h-3 rounded-full bg-brand-red animate-pulse shadow-[0_0_15px_#ef4444]" />
+                                        </div>
+                                    </div>
+
+                                    {/* Central Processing Node */}
                                     <motion.div
-                                        className="relative z-20 w-32 h-32 rounded-full border-2 border-brand-red/50 bg-black/80 flex items-center justify-center shadow-[0_0_50px_rgba(220,38,38,0.3)] backdrop-blur-md"
-                                        animate={{
-                                            boxShadow: ["0 0 50px rgba(220,38,38,0.3)", "0 0 100px rgba(220,38,38,0.5)", "0 0 50px rgba(220,38,38,0.3)"]
-                                        }}
-                                        transition={{ duration: 3, repeat: Infinity }}
+                                        className="relative z-20 w-32 h-32 rounded-3xl border border-brand-red/40 bg-black/90 flex items-center justify-center shadow-[0_0_40px_rgba(220,38,38,0.2)] backdrop-blur-xl group-hover:scale-105 transition-transform duration-500"
                                     >
-                                        <VisualIcon className="w-12 h-12 text-brand-red group-hover:scale-110 transition-transform duration-500" />
+                                        {/* Inner energetic core */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-brand-red/10 to-transparent rounded-3xl pointer-events-none" />
+                                        <div className="absolute inset-1 rounded-[1.3rem] border border-white/5" />
 
-                                        {/* Spinning Outer Ring */}
+                                        <VisualIcon className="w-12 h-12 text-brand-red" />
+
+                                        {/* Scanner bar effect inside the central node */}
                                         <motion.div
-                                            className="absolute -inset-4 border border-dashed border-white/20 rounded-full"
-                                            animate={{ rotate: 360 }}
-                                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                            className="absolute left-0 right-0 h-10 bg-gradient-to-b from-transparent via-brand-red/10 to-transparent pointer-events-none rounded-3xl overflow-hidden"
+                                            animate={{ y: ["-150%", "300%"] }}
+                                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                                         />
-                                        <motion.div
-                                            className="absolute -inset-8 border border-white/10 rounded-full"
-                                            animate={{ rotate: -360 }}
-                                            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                                        >
-                                            <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-brand-red -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_red]" />
-                                        </motion.div>
                                     </motion.div>
 
-                                    {/* Connection Lines & Floating Nodes */}
-                                    {[0, 1, 2].map((i) => (
-                                        <React.Fragment key={i}>
-                                            <motion.div
-                                                className={`absolute w-px h-[100px] md:h-[150px] bg-gradient-to-t ${cap.color.replace('from-', 'from-').replace('to-', 'to-')} hidden md:block`}
-                                                style={{
-                                                    top: i === 0 ? '10%' : i === 1 ? 'auto' : 'auto',
-                                                    bottom: i === 1 ? '10%' : 'auto',
-                                                    left: i === 2 ? '15%' : 'auto',
-                                                    right: i === 2 ? 'auto' : '50%',
-                                                    transform: i === 2 ? 'rotate(90deg)' : 'none',
-                                                }}
-                                                initial={{ scaleY: 0, opacity: 0 }}
-                                                whileInView={{ scaleY: 1, opacity: 1 }}
-                                                transition={{ duration: 1, delay: 0.5 + (i * 0.2) }}
-                                            />
-                                            <motion.div
-                                                className="absolute w-12 h-12 rounded-lg border border-white/10 bg-black/50 backdrop-blur-sm flex items-center justify-center text-[10px] text-neutral-500 font-mono"
-                                                style={{
-                                                    top: i === 0 ? '15%' : i === 1 ? '70%' : '45%',
-                                                    left: i === 0 ? '20%' : i === 1 ? '80%' : '15%',
-                                                }}
-                                                initial={{ opacity: 0, scale: 0 }}
-                                                whileInView={{ opacity: 1, scale: 1 }}
-                                                transition={{ duration: 0.5, delay: 0.8 + (i * 0.2) }}
-                                                whileHover={{ scale: 1.1, backgroundColor: "rgba(220,38,38,0.1)", borderColor: "rgba(220,38,38,0.5)", color: "#fff" }}
-                                            >
-                                                SYS.{i}
-                                            </motion.div>
-                                        </React.Fragment>
-                                    ))}
+                                    {/* Ambient Glow behind center */}
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-brand-red/20 blur-[60px] rounded-full pointer-events-none z-0" />
 
-                                    {/* Sweeping Scanline Effect */}
-                                    <motion.div
-                                        className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-brand-red/5 to-transparent z-30 pointer-events-none"
-                                        animate={{ y: ["-100%", "500%"] }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                    />
                                 </motion.div>
                             </div>
                         </div>

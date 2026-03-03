@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
+import { ChatBot } from "@/components/ui/ChatBot";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Header />
         <main className="min-h-screen relative z-10">{children}</main>
         <Footer />
+        <ChatBot />
       </body>
     </html>
   );

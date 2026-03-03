@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Typography } from "@/components/ui/typography";
+import Image from "next/image";
 
 export function Footer() {
     return (
@@ -9,9 +10,14 @@ export function Footer() {
             <div className="max-w-7xl mx-auto px-6" suppressHydrationWarning>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16" suppressHydrationWarning>
                     <div className="md:col-span-1" suppressHydrationWarning>
-                        <Link href="/" className="flex items-center gap-2 mb-6">
-                            <div className="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center" suppressHydrationWarning>
-                                <span className="text-white font-display font-bold text-sm">RL</span>
+                        <Link href="/" className="flex items-center gap-3 mb-6 group">
+                            <div className="relative w-10 h-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110" suppressHydrationWarning>
+                                <Image
+                                    src="/logo.png"
+                                    alt="Radlabs Logo"
+                                    fill
+                                    className="object-contain"
+                                />
                             </div>
                             <span className="text-xl font-display font-bold text-white tracking-wide">
                                 Radlabs
