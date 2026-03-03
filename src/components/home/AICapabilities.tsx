@@ -62,12 +62,7 @@ export function AICapabilities() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 backdrop-blur-sm mb-6">
-                            <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-                            <span className="text-sm font-medium text-brand-red tracking-wide uppercase">
-                                Intelligent Systems
-                            </span>
-                        </div>
+
                         <Typography variant="h2" className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight">
                             More Than Just Models
                         </Typography>
@@ -220,20 +215,7 @@ export function AICapabilities() {
                 })}
             </div>
 
-            {/* Final Callout at bottom of scroll */}
-            <div className="pb-32 pt-16 flex justify-center relative z-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md"
-                >
-                    <Activity className="w-6 h-6 text-brand-red" />
-                    <span className="text-lg font-medium text-white tracking-wide">
-                        Ready to integrate these capabilities?
-                    </span>
-                </motion.div>
-            </div>
+
         </section>
     );
 }
