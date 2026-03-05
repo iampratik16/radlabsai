@@ -16,21 +16,13 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         gsap.registerPlugin(ScrollTrigger);
         gsap.ticker.lagSmoothing(0);
 
-        // After Lenis mounts and the DOM settles, refresh all ScrollTrigger positions
+        // Single refresh after fonts + images settle
         const refreshTimeout = setTimeout(() => {
             ScrollTrigger.refresh(true);
-        }, 300);
-
-        // Second refresh after fonts + images settle
-        const secondRefresh = setTimeout(() => {
-            ScrollTrigger.refresh(true);
-        }, 1200);
+        }, 500);
 
         return () => {
             clearTimeout(refreshTimeout);
-            clearTimeout(secondRefresh);
-            // Kill ALL ScrollTrigger instances on unmount to prevent stale pinned elements
-            // from holding references to DOM nodes that React has since removed.
             ScrollTrigger.getAll().forEach((t) => t.kill());
         };
     }, []);

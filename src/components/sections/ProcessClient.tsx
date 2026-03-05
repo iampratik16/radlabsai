@@ -142,12 +142,10 @@ export function ProcessClient({ children, header }: { children: ReactNode; heade
         }, containerRef);
 
         return () => {
-            // Only revert if we're actually unmounting from the DOM safely
             try {
                 ctx.revert();
-                ScrollTrigger.getAll().forEach(t => t.kill());
-            } catch (e) {
-                console.warn("GSAP revert non-fatal error on unmount:", e);
+            } catch {
+                // Suppress non-fatal GSAP revert errors on unmount
             }
         };
     }, [isMounted, prefersReducedMotion]);

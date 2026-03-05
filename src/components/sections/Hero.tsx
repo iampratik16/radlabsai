@@ -69,9 +69,7 @@ export function Hero() {
                 xPercent: targetX,
                 yPercent: targetY,
                 transformOrigin: "center center",
-                force3D: true,  // Promote to GPU layer for smooth compositing
-                rotationZ: 0.01, // Force hardware acceleration to prevent text rasterization/pixelation
-                z: 0.1, // Extra hardware acceleration kick
+                force3D: true,
                 ease: "power2.inOut",
                 duration: 1
             }, 0);
@@ -100,8 +98,7 @@ export function Hero() {
         return () => {
             try {
                 ctx.revert();
-                ScrollTrigger.getAll().forEach(t => t.kill());
-            } catch (e) {
+            } catch {
                 // Suppress React removeChild errors during fast unmount/tab switch
             }
         };
@@ -138,10 +135,10 @@ export function Hero() {
             <div
                 ref={zoomTextRef}
                 className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-                style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden', perspective: 1000, contain: 'layout style paint' }}
+                style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', perspective: 1000, contain: 'layout style paint' }}
             >
                 {/* Massive bold font for the mask — use large base size so scaled text stays sharp */}
-                <div ref={zoomTextInnerRef} className="text-[12vw] leading-none font-bold tracking-tighter text-white font-sans text-center whitespace-nowrap flex flex-col uppercase opacity-90" style={{ transformStyle: 'preserve-3d', WebkitFontSmoothing: 'subpixel-antialiased' }}>
+                <div ref={zoomTextInnerRef} className="text-[12vw] leading-none font-bold tracking-tighter text-white font-sans text-center whitespace-nowrap flex flex-col uppercase opacity-90" style={{ transformStyle: 'preserve-3d', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
                     <span className="text-[var(--color-fire-neon)] -translate-y-8 md:translate-y-0">BESPOKE</span>
                     <span className="mt-[12vh] md:mt-[4vw]">AI</span>
                     <span className="text-[var(--color-text-secondary)] italic font-serif lowercase mt-[-2vw]">Solutions</span>
