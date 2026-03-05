@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Typography } from "@/components/ui/typography";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
-    BrainCircuit, Code2, Globe2, Sparkles, Network, ArrowRight,
+    BrainCircuit, Code2, Globe2, Sparkles, Network,
     Megaphone, SearchCheck, Star
 } from "lucide-react";
 
@@ -122,9 +122,6 @@ export function ServicesGrid() {
                                                 </li>
                                             ))}
                                         </ul>
-                                        <div className="mt-8 flex items-center text-sm font-medium text-brand-red opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                            Learn more <ArrowRight className="ml-1 w-4 h-4" />
-                                        </div>
                                     </CardContent>
                                 </Card>
                             </motion.div>
@@ -167,9 +164,6 @@ export function ServicesGrid() {
                                         <p className="text-neutral-400 leading-relaxed font-sans text-sm group-hover:text-neutral-300 transition-colors duration-300">
                                             {svc.description}
                                         </p>
-                                        <div className="mt-6 flex items-center text-sm font-medium text-brand-red opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                            Learn more <ArrowRight className="ml-1 w-4 h-4" />
-                                        </div>
                                     </CardContent>
                                 </Card>
                             </motion.div>

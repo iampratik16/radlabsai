@@ -37,7 +37,7 @@ export function ProcessGraphNode({ step, index, total }: ProcessGraphNodeProps) 
                 )}
 
                 {/* Node Circle */}
-                <div className="process-circle relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 bg-[#111] flex items-center justify-center transition-all duration-500 group-hover:border-[var(--color-fire-neon)] group-hover:bg-[#1a1a1a] shadow-[0_0_0_transparent] group-hover:shadow-[0_0_20px_rgba(255,51,51,0.2)]">
+                <div className="process-circle relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/20 bg-[#111] flex items-center justify-center transition-all duration-500 group-hover:border-[var(--color-fire-neon)] group-hover:bg-[#1a1a1a] shadow-[0_0_0_transparent] group-hover:shadow-[0_0_20px_rgba(255,51,51,0.2)] opacity-0 scale-0" style={{ transform: 'scale(0)' }}>
                     <Icon className="w-5 h-5 md:w-6 md:h-6 text-white/50 group-hover:text-[var(--color-fire-neon)] transition-colors duration-500" />
                     {/* Pulsing ring on hover */}
                     <div className="absolute inset-[-4px] rounded-full border border-[var(--color-fire-neon)] opacity-0 scale-110 group-hover:animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
@@ -45,7 +45,7 @@ export function ProcessGraphNode({ step, index, total }: ProcessGraphNodeProps) 
             </div>
 
             {/* Dashboard Card Content */}
-            <div className="process-card w-full p-5 md:p-6 rounded-2xl border border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md transition-all duration-500 group-hover:bg-[#111] group-hover:border-white/10 group-hover:-translate-y-2">
+            <div className="process-card w-full p-5 md:p-6 rounded-2xl border border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md transition-all duration-500 group-hover:bg-[#111] group-hover:border-white/10 group-hover:-translate-y-2 opacity-0" style={{ transform: 'translateY(30px)' }}>
                 <div className="flex items-center justify-between mb-3 md:mb-4">
                     <span className="font-mono text-xs tracking-widest text-[var(--color-fire-neon)]">PHASE {step.phase}</span>
                     <div className="w-8 h-[1px] bg-white/10" />

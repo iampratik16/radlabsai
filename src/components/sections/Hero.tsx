@@ -158,7 +158,7 @@ export function Hero() {
                 <div
                     ref={zoomTextRef}
                     className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-                    style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', perspective: 1000, contain: 'layout style paint' }}
+                    style={{ willChange: 'transform, opacity', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                     {/* Massive bold font for the mask — use large base size so scaled text stays sharp */}
                     <div ref={zoomTextInnerRef} className="text-[12vw] leading-none font-bold tracking-tighter text-white font-sans text-center whitespace-nowrap flex flex-col uppercase opacity-90" style={{ transformStyle: 'preserve-3d', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>

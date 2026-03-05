@@ -353,7 +353,7 @@ export function ChatBot() {
                             className="
                 absolute bottom-0 right-0
                 w-[92vw] sm:w-[400px]
-                max-h-[85vh]
+                h-[85vh] max-h-[600px]
                 flex flex-col
                 rounded-2xl
                 border border-white/10
@@ -391,7 +391,7 @@ export function ChatBot() {
                             </div>
 
                             {/* Messages */}
-                            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10">
+                            <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10">
                                 {messages.map((msg) => (
                                     <div key={msg.id}>
                                         <div

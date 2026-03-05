@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Typography } from "@/components/ui/typography";
+import React from "react";
+import { motion } from "framer-motion";
+
 import { Database, Zap, ShieldCheck, Activity, Cpu, Network, Layers } from "lucide-react";
 
 const capabilities = [
@@ -45,33 +45,10 @@ const capabilities = [
 ];
 
 export function AICapabilities() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
-
     return (
-        <section ref={containerRef} className="relative bg-black" id="ai-capabilities">
-            {/* Sticky Header */}
-            <div className="sticky top-0 h-[30vh] md:h-[40vh] flex flex-col justify-center items-center z-20 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none">
-                <div className="max-w-7xl mx-auto px-6 text-center w-full">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-
-                        <Typography variant="h2" className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight">
-                            More Than Just Models
-                        </Typography>
-                    </motion.div>
-                </div>
-            </div>
-
+        <section className="relative bg-black" id="ai-capabilities">
             {/* Scrolling Content Sequence */}
-            <div className="relative z-10 w-full mt-[-10vh]">
+            <div className="relative z-10 w-full">
                 {capabilities.map((cap, index) => {
                     const isEven = index % 2 === 0;
                     const Icon = cap.icon;
