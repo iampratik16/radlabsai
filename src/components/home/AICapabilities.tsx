@@ -131,29 +131,29 @@ export function AICapabilities() {
                                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_10%,transparent_100%)]" />
 
                                     {/* SVGs for Connections */}
-                                    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+                                    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ zIndex: 1 }}>
                                         {/* Center to Top Left */}
                                         <g>
-                                            <path d="M 50% 50% Q 25% 50% 25% 25%" fill="none" className={cap.stroke} strokeWidth="2" strokeDasharray="5, 5" opacity="0.3" />
-                                            <motion.circle r="3" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
-                                                <animateMotion dur="3s" repeatCount="indefinite" path="M 50% 50% Q 25% 50% 25% 25%" />
-                                            </motion.circle>
+                                            <path d="M 50 50 Q 25 50 25 25" fill="none" className={cap.stroke} strokeWidth="0.5" strokeDasharray="2, 2" opacity="0.3" />
+                                            <circle r="1" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
+                                                <animateMotion dur="3s" repeatCount="indefinite" path="M 50 50 Q 25 50 25 25" />
+                                            </circle>
                                         </g>
 
                                         {/* Center to Top Right */}
                                         <g>
-                                            <path d="M 50% 50% Q 75% 50% 75% 25%" fill="none" className={cap.stroke} strokeWidth="2" strokeDasharray="5, 5" opacity="0.3" />
-                                            <motion.circle r="3" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
-                                                <animateMotion dur="4s" repeatCount="indefinite" path="M 50% 50% Q 75% 50% 75% 25%" />
-                                            </motion.circle>
+                                            <path d="M 50 50 Q 75 50 75 25" fill="none" className={cap.stroke} strokeWidth="0.5" strokeDasharray="2, 2" opacity="0.3" />
+                                            <circle r="1" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
+                                                <animateMotion dur="4s" repeatCount="indefinite" path="M 50 50 Q 75 50 75 25" />
+                                            </circle>
                                         </g>
 
                                         {/* Center to Bottom */}
                                         <g>
-                                            <path d="M 50% 50% C 50% 65% 50% 75% 50% 85%" fill="none" className={cap.stroke} strokeWidth="2" strokeDasharray="5, 5" opacity="0.3" />
-                                            <motion.circle r="3" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
-                                                <animateMotion dur="2.5s" repeatCount="indefinite" path="M 50% 50% C 50% 65% 50% 75% 50% 85%" />
-                                            </motion.circle>
+                                            <path d="M 50 50 C 50 65 50 75 50 85" fill="none" className={cap.stroke} strokeWidth="0.5" strokeDasharray="2, 2" opacity="0.3" />
+                                            <circle r="1" fill="#ef4444" className="filter drop-shadow-[0_0_8px_#ef4444]">
+                                                <animateMotion dur="2.5s" repeatCount="indefinite" path="M 50 50 C 50 65 50 75 50 85" />
+                                            </circle>
                                         </g>
                                     </svg>
 

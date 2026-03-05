@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Typography } from "@/components/ui/typography";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
@@ -30,24 +30,15 @@ const industries = [
 
 export function Industries() {
     const targetRef = useRef<HTMLDivElement>(null);
-    const stripRef = useRef<HTMLDivElement>(null);
-
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
-    // Use useTransform with a mapper function so it dynamically reads the strip width
-    // every time scrollYProgress changes — no stale state issues
-    const x = useTransform(scrollYProgress, (progress) => {
-        if (!stripRef.current) return 0;
-        const totalWidth = stripRef.current.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const maxScroll = Math.max(0, totalWidth - viewportWidth);
-        return -progress * maxScroll;
-    });
+    // Original working scroll: starts at 10% (Finance visible) and ends at -60%
+    const x = useTransform(scrollYProgress, [0, 1], ["10%", "-60%"]);
 
     return (
-        <section ref={targetRef} className="relative h-[200vh] bg-black" id="industries">
+        <section ref={targetRef} className="relative h-[300vh] bg-black" id="industries">
             <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden pt-20">
                 <div className="max-w-7xl mx-auto px-6 w-full mb-12">
                     <Typography variant="h2" className="text-white">
@@ -58,11 +49,7 @@ export function Industries() {
                     </Typography>
                 </div>
 
-                <motion.div
-                    ref={stripRef}
-                    style={{ x }}
-                    className="flex gap-6 pl-6 pr-6 md:pl-24 md:pr-24 w-max"
-                >
+                <motion.div style={{ x }} className="flex gap-8 px-6 md:px-24">
                     {industries.map((ind) => (
                         <Card key={ind.name} className="card-lift w-[400px] shrink-0 h-[450px] flex flex-col bg-neutral-950 border-white/10 hover:border-brand-darkred/50">
                             <CardHeader className="border-b border-white/5 pb-6">

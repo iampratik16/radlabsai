@@ -251,9 +251,8 @@ export function CTASection() {
                         className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4"
                     >
                         <a href="/contact" className="w-full sm:w-auto">
-                            <Button variant="primary" size="lg" className="btn-chatbot-effect w-full sm:w-auto bg-[#E63946] text-white group shadow-[0_0_24px_rgba(230,57,70,0.35)] rounded-full font-bold tracking-wider uppercase overflow-visible border border-[#E63946]/60">
-                                <div className="btn-particles"><span /><span /><span /><span /><span /><span /><span /><span /></div>
-                                <span className="relative z-10 flex items-center gap-2">
+                            <Button variant="primary" size="lg" className="w-full sm:w-auto bg-white text-black group shadow-lg rounded-full font-semibold border border-transparent hover:text-brand-red hover:border-brand-red transition-all duration-300">
+                                <span className="flex items-center gap-2">
                                     Book a Consultation
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </span>

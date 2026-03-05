@@ -79,8 +79,8 @@ export function Header() {
                         </Link>
                     ))}
 
-                    {/* CTA Button — dark red with chatbot-style rotating ring + particles */}
-                    <Link href="/contact" className="relative" suppressHydrationWarning>
+                    {/* CTA Button */}
+                    <Link href="/contact" suppressHydrationWarning>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.97 }}
@@ -88,12 +88,9 @@ export function Header() {
                         >
                             <Button
                                 variant="primary"
-                                className="btn-chatbot-effect relative bg-[#E63946] text-white font-bold border border-[#E63946]/60 shadow-[0_0_24px_rgba(230,57,70,0.35)] rounded-full overflow-visible"
+                                className="bg-white text-black font-semibold rounded-full border border-transparent shadow-lg hover:text-brand-red hover:border-brand-red transition-all duration-300"
                             >
-                                <div className="btn-particles"><span /><span /><span /><span /><span /><span /><span /><span /></div>
-                                <span className="relative z-10 flex items-center gap-2 uppercase tracking-wider text-xs">
-                                    Book AI Consultation
-                                </span>
+                                Book AI Consultation
                             </Button>
                         </motion.div>
                     </Link>
@@ -147,11 +144,10 @@ export function Header() {
                     >
                         <Button
                             variant="primary"
-                            className="btn-chatbot-effect relative w-full bg-[#E63946] text-white border border-[#E63946]/60 shadow-[0_0_24px_rgba(230,57,70,0.35)] rounded-full font-bold uppercase tracking-wider overflow-visible"
+                            className="w-full bg-white text-black font-semibold rounded-full border border-transparent shadow-lg hover:text-brand-red hover:border-brand-red transition-all duration-300"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            <div className="btn-particles"><span /><span /><span /><span /><span /><span /><span /><span /></div>
-                            <span className="relative z-10">Book AI Consultation</span>
+                            Book AI Consultation
                         </Button>
                     </motion.div>
                 </div>
