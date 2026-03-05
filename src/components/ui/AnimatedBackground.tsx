@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-function NeuralNetwork({ count = 180 }) { // Reduced count for performance
+function NeuralNetwork({ count = 120 }) {
     const pointsRef = useRef<THREE.Points>(null);
     const linesRef = useRef<THREE.LineSegments>(null);
     const frameCount = useRef(0);
@@ -74,7 +74,7 @@ function NeuralNetwork({ count = 180 }) { // Reduced count for performance
 
         // 2. Connection Update (Skip frames to save CPU)
         frameCount.current++;
-        if (frameCount.current % 2 !== 0) return;
+        if (frameCount.current % 3 !== 0) return;
 
         let lineIdx = 0;
         const lineAttr = lineGeometry.attributes.position;
@@ -136,11 +136,27 @@ function NeuralNetwork({ count = 180 }) { // Reduced count for performance
 }
 
 export function AnimatedBackground() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        // Delay mounting the heavy 3D canvas until after initial paint
+        const hasIdleCallback = typeof window !== 'undefined' && 'requestIdleCallback' in window;
+        const timer = hasIdleCallback
+            ? window.requestIdleCallback(() => setMounted(true))
+            : window.setTimeout(() => setMounted(true), 100);
+        return () => {
+            if (hasIdleCallback) window.cancelIdleCallback(timer);
+            else window.clearTimeout(timer);
+        };
+    }, []);
+
     return (
         <div className="fixed inset-0 z-[-1] bg-black pointer-events-none" suppressHydrationWarning>
-            <Canvas camera={{ position: [0, 0, 10], fov: 60 }} dpr={[1, 1.5]}>
-                <NeuralNetwork count={180} />
-            </Canvas>
+            {mounted && (
+                <Canvas camera={{ position: [0, 0, 10], fov: 60 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
+                    <NeuralNetwork count={120} />
+                </Canvas>
+            )}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,#030305_100%)]" suppressHydrationWarning></div>
         </div>
     );

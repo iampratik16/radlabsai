@@ -11,21 +11,17 @@ export function Cursor() {
     const prefersReducedMotion = useReducedMotion();
 
     useEffect(() => {
-        // Hide entirely on touch devices
-        if (typeof window === 'undefined' || matchMedia('(pointer: coarse)').matches || prefersReducedMotion) {
+        if (matchMedia('(pointer: coarse)').matches || prefersReducedMotion) {
             return;
         }
 
         setIsVisible(true);
 
         const onMouseMove = (e: MouseEvent) => {
-            // Move dot instantly
             gsap.set(cursorRef.current, {
                 x: e.clientX,
                 y: e.clientY,
             });
-
-            // Move follower with lag
             gsap.to(followerRef.current, {
                 x: e.clientX,
                 y: e.clientY,
@@ -41,7 +37,6 @@ export function Cursor() {
         window.addEventListener('mouseenter', onMouseEnter);
         window.addEventListener('mouseleave', onMouseLeave);
 
-        // Add magnetic hover state to clickable elements
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
             if (target.closest('a, button, [role="button"]')) {
@@ -70,10 +65,8 @@ export function Cursor() {
         };
     }, [prefersReducedMotion]);
 
-    if (!isVisible) return null;
-
     return (
-        <>
+        <div suppressHydrationWarning style={{ display: isVisible ? 'contents' : 'none' }}>
             <div
                 ref={cursorRef}
                 className="fixed top-0 left-0 w-2 h-2 -ml-1 -mt-1 bg-[var(--color-fire-neon)] rounded-full pointer-events-none z-[100]"
@@ -83,6 +76,6 @@ export function Cursor() {
                 ref={followerRef}
                 className="fixed top-0 left-0 w-10 h-10 -ml-5 -mt-5 border border-white/10 rounded-full pointer-events-none z-[99] backdrop-blur-[1px]"
             />
-        </>
+        </div>
     );
 }

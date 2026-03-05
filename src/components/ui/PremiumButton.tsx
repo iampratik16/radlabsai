@@ -37,7 +37,7 @@ export function PremiumButton({ onClick, children, className, icon, showArrow = 
                 .premium-ring::before {
                     content: '';
                     position: absolute;
-                    inset: -2px;
+                    inset: -5px;
                     border-radius: 9999px;
                     background: conic-gradient(
                         from 0deg,
@@ -49,40 +49,41 @@ export function PremiumButton({ onClick, children, className, icon, showArrow = 
                     );
                     opacity: 0;
                     transition: opacity 0.5s ease;
-                    animation: rotate-ring 3s linear infinite;
+                    animation: rotate-ring 3.2s linear infinite paused;
                     z-index: -1;
                 }
                 .group:hover .premium-ring::before {
                     opacity: 1;
+                    animation-play-state: running;
                 }
                 .premium-glow::after {
                     content: '';
                     position: absolute;
-                    inset: -12px;
+                    inset: -24px;
                     border-radius: 9999px;
-                    background: radial-gradient(circle, rgba(230, 57, 70, 0.4) 0%, transparent 70%);
+                    background: radial-gradient(circle, rgba(230, 57, 70, 0.42) 0%, transparent 70%);
                     opacity: 0;
                     transition: opacity 0.5s ease, transform 0.5s ease;
-                    transform: scale(0.8);
+                    transform: scale(0.6);
                     z-index: -2;
                 }
                 .group:hover .premium-glow::after {
-                    opacity: 1;
+                    opacity: 0.85;
                     transform: scale(1.15);
                 }
                 .particle {
                     position: absolute;
-                    width: 3px;
-                    height: 3px;
+                    width: 4px;
+                    height: 4px;
                     background: #E63946;
                     border-radius: 50%;
                     top: 50%;
                     left: 50%;
-                    opacity: 0;
                     pointer-events: none;
+                    animation: particle-burst 1.2s ease-out infinite paused;
                 }
                 .group:hover .particle {
-                    animation: particle-burst 1.2s ease-out infinite;
+                    animation-play-state: running;
                 }
             `}</style>
 
@@ -99,7 +100,7 @@ export function PremiumButton({ onClick, children, className, icon, showArrow = 
                         }
                     }
                 }}
-                className="relative flex items-center justify-center gap-2 px-8 py-3 bg-[#111111] border border-white/10 rounded-full text-white font-mono text-xs uppercase tracking-widest transition-all duration-300 group-hover:border-brand-red/40 group-hover:scale-105 active:scale-95 shadow-2xl premium-ring premium-glow cursor-pointer overflow-hidden w-full h-full"
+                className="relative flex items-center justify-center gap-2 px-8 py-3 bg-[#111111] border border-white/10 rounded-full text-white font-mono text-xs uppercase tracking-widest transition-all duration-300 group-hover:border-brand-red/35 group-hover:scale-[1.08] active:scale-95 shadow-[0_8px_32px_rgba(0,0,0,0.5)] premium-ring premium-glow cursor-pointer overflow-hidden w-full h-full"
             >
                 <div className="relative z-10 flex items-center gap-2">
                     <span className="relative overflow-hidden w-4 h-4 flex items-center justify-center">
@@ -107,8 +108,10 @@ export function PremiumButton({ onClick, children, className, icon, showArrow = 
                             animate={{
                                 y: isHovered ? -20 : 0,
                                 opacity: isHovered ? 0 : 1,
-                                scale: isHovered ? 0.5 : 1
+                                scale: isHovered ? 0.5 : 1.2,
+                                rotate: isHovered ? 180 : 0
                             }}
+                            transition={{ duration: 0.45, ease: [0.68, -0.55, 0.265, 1.55] }}
                             className="absolute"
                         >
                             {icon || (
@@ -118,12 +121,14 @@ export function PremiumButton({ onClick, children, className, icon, showArrow = 
                             )}
                         </motion.div>
                         <motion.div
-                            initial={{ y: 20, opacity: 0, scale: 0.5 }}
+                            initial={{ y: 20, opacity: 0, scale: 0 }}
                             animate={{
                                 y: isHovered ? 0 : 20,
                                 opacity: isHovered ? 1 : 0,
-                                scale: isHovered ? 1 : 0.5
+                                scale: isHovered ? 1.2 : 0,
+                                rotate: isHovered ? 0 : -180
                             }}
+                            transition={{ duration: 0.45, ease: [0.68, -0.55, 0.265, 1.55] }}
                             className="absolute text-brand-red"
                         >
                             <Sparkles size={16} />
@@ -143,14 +148,23 @@ export function PremiumButton({ onClick, children, className, icon, showArrow = 
 
             {/* Particles */}
             <div className="absolute inset-0 pointer-events-none">
-                {[...Array(8)].map((_, i) => (
+                {[
+                    { angle: 0, dist: 45, delay: 0 },
+                    { angle: 45, dist: 40, delay: 0.1 },
+                    { angle: 90, dist: 48, delay: 0.05 },
+                    { angle: 135, dist: 38, delay: 0.15 },
+                    { angle: 180, dist: 42, delay: 0.08 },
+                    { angle: 225, dist: 46, delay: 0.12 },
+                    { angle: 270, dist: 38, delay: 0.03 },
+                    { angle: 315, dist: 48, delay: 0.18 },
+                ].map((p, i) => (
                     <span
                         key={i}
                         className="particle"
                         style={{
-                            '--angle': `${i * 45}deg`,
-                            '--dist': '42px',
-                            animationDelay: `${i * 0.1}s`
+                            '--angle': `${p.angle}deg`,
+                            '--dist': `${p.dist}px`,
+                            animationDelay: `${p.delay}s`
                         } as React.CSSProperties}
                     />
                 ))}
