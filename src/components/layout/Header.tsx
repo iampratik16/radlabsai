@@ -74,6 +74,7 @@ export function Header() {
                             onMouseEnter={() => setHoveredLink(link.name)}
                             onMouseLeave={() => setHoveredLink(null)}
                             className="nav-link-glow relative text-sm font-medium text-neutral-300 hover:text-white transition-colors duration-200 py-1"
+                            suppressHydrationWarning
                         >
                             {link.name}
                             {/* Animated underline via CSS class */}
@@ -110,6 +111,7 @@ export function Header() {
                 animate={mobileMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="md:hidden overflow-hidden bg-black/95 backdrop-blur-3xl border-b border-white/10"
+                suppressHydrationWarning
             >
                 <div className="px-6 py-8 flex flex-col gap-6">
                     {navLinks.map((link, i) => (
@@ -123,6 +125,7 @@ export function Header() {
                                 href={link.href}
                                 className="nav-link-glow text-lg font-medium text-neutral-300 hover:text-white transition-colors py-1 block w-max"
                                 onClick={() => setMobileMenuOpen(false)}
+                                suppressHydrationWarning
                             >
                                 {link.name}
                             </Link>

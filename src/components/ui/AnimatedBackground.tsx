@@ -138,9 +138,11 @@ function NeuralNetwork({ count = 180 }) { // Reduced count for performance
 export function AnimatedBackground() {
     return (
         <div className="fixed inset-0 z-[-1] bg-black pointer-events-none" suppressHydrationWarning>
-            <Canvas camera={{ position: [0, 0, 10], fov: 60 }} dpr={[1, 1.5]}>
-                <NeuralNetwork count={180} />
-            </Canvas>
+            <div suppressHydrationWarning className="w-full h-full">
+                <Canvas camera={{ position: [0, 0, 10], fov: 60 }} dpr={[1, 1.5]}>
+                    <NeuralNetwork count={180} />
+                </Canvas>
+            </div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,#030305_100%)]" suppressHydrationWarning></div>
         </div>
     );

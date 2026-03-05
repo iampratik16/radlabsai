@@ -7,6 +7,8 @@ export function GrainOverlay() {
                 backgroundRepeat: 'repeat',
                 backgroundSize: '150px 150px',
             }}
+            suppressHydrationWarning
         />
+
     );
 }

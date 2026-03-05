@@ -79,8 +79,9 @@ export function Preloader() {
         <div
             ref={containerRef}
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--color-brand-black)]"
+            suppressHydrationWarning
         >
-            <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-col items-center gap-8" suppressHydrationWarning>
                 <div
                     ref={logoRef}
                     className="relative w-32 h-32 opacity-0 scale-90"

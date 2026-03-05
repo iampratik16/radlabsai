@@ -2,7 +2,7 @@ import React from 'react';
 
 export function GridLines() {
     return (
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.03]">
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.03]" suppressHydrationWarning>
             {/* Background ruling */}
             <div
                 className="absolute inset-0"

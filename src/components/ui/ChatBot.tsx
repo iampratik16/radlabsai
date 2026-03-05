@@ -313,8 +313,9 @@ export function ChatBot() {
                                 className="chatbot-fab"
                                 onClick={() => setOpen(true)}
                                 aria-label="Open AI Chat"
+                                suppressHydrationWarning
                             >
-                                <div className="chatbot-fab-inner">
+                                <div className="chatbot-fab-inner" suppressHydrationWarning>
                                     {/* Default: bot icon */}
                                     <svg className="chatbot-icon-bot" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
@@ -329,13 +330,13 @@ export function ChatBot() {
                                 </div>
 
                                 {/* Particle burst */}
-                                <div className="chatbot-particles">
+                                <div className="chatbot-particles" suppressHydrationWarning>
                                     <span /><span /><span /><span />
                                     <span /><span /><span /><span />
                                 </div>
 
                                 {/* Tooltip */}
-                                <div className="chatbot-tooltip">Ask Radlabs AI</div>
+                                <div className="chatbot-tooltip" suppressHydrationWarning>Ask Radlabs AI</div>
                             </button>
                         </motion.div>
                     )}
