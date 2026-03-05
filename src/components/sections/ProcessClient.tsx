@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, ReactNode, useEffect, useState } from 'react';
+import { useRef, ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -9,6 +9,7 @@ export function ProcessClient({ children, header }: { children: ReactNode; heade
     const containerRef = useRef<HTMLDivElement>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
     const glowTrackerRef = useRef<HTMLDivElement>(null);
+    const gsapCtxRef = useRef<gsap.Context | null>(null);
     const prefersReducedMotion = useReducedMotion();
     const [isMounted, setIsMounted] = useState(false);
 
@@ -21,7 +22,7 @@ export function ProcessClient({ children, header }: { children: ReactNode; heade
 
         gsap.registerPlugin(ScrollTrigger);
 
-        const ctx = gsap.context(() => {
+        const ctx = gsapCtxRef.current = gsap.context(() => {
             const strip = timelineRef.current;
             if (!strip) return;
 
@@ -144,11 +145,25 @@ export function ProcessClient({ children, header }: { children: ReactNode; heade
         return () => {
             try {
                 ctx.revert();
+                gsapCtxRef.current = null;
             } catch {
                 // Suppress non-fatal GSAP revert errors on unmount
             }
         };
     }, [isMounted, prefersReducedMotion]);
+
+    // useLayoutEffect cleanup runs synchronously before React removes DOM nodes,
+    // ensuring GSAP's pin-spacer wrapper is removed before React tries removeChild
+    useLayoutEffect(() => {
+        return () => {
+            try {
+                gsapCtxRef.current?.revert();
+                gsapCtxRef.current = null;
+            } catch {
+                // Suppress if already reverted
+            }
+        };
+    }, []);
 
     return (
         <div ref={containerRef} suppressHydrationWarning className="w-full flex flex-col py-16 md:py-24 relative overflow-hidden bg-[var(--color-brand-black)] border-y border-white/5 min-h-[100svh]">

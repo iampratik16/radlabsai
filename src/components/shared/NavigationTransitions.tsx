@@ -5,20 +5,23 @@ import { usePathname } from 'next/navigation';
 
 export function NavigationTransitions() {
     const pathname = usePathname();
-    const isFirstRender = useRef(true);
+    const prevPathname = useRef(pathname);
 
     useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
+        if (prevPathname.current === pathname) return;
+        prevPathname.current = pathname;
 
-        if (!document.startViewTransition) return;
+        // Apply a CSS class to trigger the fade transition instead of using
+        // document.startViewTransition(), which conflicts with React's DOM
+        // reconciliation and causes "removeChild" errors.
+        const main = document.querySelector('main');
+        if (!main) return;
 
-        document.startViewTransition(() => {
-            return new Promise<void>((resolve) => {
-                requestAnimationFrame(() => resolve());
-            });
+        main.style.opacity = '0';
+        main.style.transition = 'opacity 0.2s ease-out';
+
+        requestAnimationFrame(() => {
+            main.style.opacity = '1';
         });
     }, [pathname]);
 

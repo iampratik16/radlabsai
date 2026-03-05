@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MOCK_HERO_CONTENT } from '@/data/mock/navigation';
@@ -15,6 +15,7 @@ export function Hero() {
     const backgroundLayerRef = useRef<HTMLDivElement>(null);
     const contentHiderRef = useRef<HTMLDivElement>(null);
     const contentInnerRef = useRef<HTMLDivElement>(null);
+    const gsapCtxRef = useRef<gsap.Context | null>(null);
     const prefersReducedMotion = useReducedMotion();
     const [mounted, setMounted] = React.useState(false);
 
@@ -27,7 +28,7 @@ export function Hero() {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        const ctx = gsap.context(() => {
+        const ctx = gsapCtxRef.current = gsap.context(() => {
 
             // Initial entrance — use ONLY transform+opacity (no filter:blur — it triggers CPU repaint every frame)
             gsap.fromTo(zoomTextInnerRef.current,
@@ -98,11 +99,25 @@ export function Hero() {
         return () => {
             try {
                 ctx.revert();
+                gsapCtxRef.current = null;
             } catch {
                 // Suppress React removeChild errors during fast unmount/tab switch
             }
         };
     }, [prefersReducedMotion]);
+
+    // useLayoutEffect cleanup runs synchronously before React removes DOM nodes,
+    // ensuring GSAP's pin-spacer wrapper is removed before React tries removeChild
+    useLayoutEffect(() => {
+        return () => {
+            try {
+                gsapCtxRef.current?.revert();
+                gsapCtxRef.current = null;
+            } catch {
+                // Suppress if already reverted
+            }
+        };
+    }, []);
 
     return (
         <section
