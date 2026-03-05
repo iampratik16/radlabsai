@@ -29,9 +29,9 @@ export default async function ProjectPage({ params }: PageProps) {
         <main className="min-h-screen bg-black text-white pt-32 pb-16 selection:bg-brand-red/30">
             {/* Context/Back Link */}
             <div className="max-w-4xl mx-auto px-6 mb-12">
-                <Link href="/projects" className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
+                <Link href="/projects" className="link-underline-swipe inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                    <span className="text-sm font-medium tracking-wide uppercase">Back to Projects</span>
+                    <span className="text-sm font-medium tracking-wide uppercase mt-1">Back to Projects</span>
                 </Link>
             </div>
 
@@ -64,9 +64,9 @@ export default async function ProjectPage({ params }: PageProps) {
                 {/* Core Metrics Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
                     {project.metrics.map((metric, i) => (
-                        <div key={i} className="p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md relative overflow-hidden group">
+                        <div key={i} className="card-lift p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <BarChart3 className="w-16 h-16 text-brand-red" />
+                                <BarChart3 className="icon-hover w-16 h-16 text-brand-red" />
                             </div>
                             <div className="relative z-10">
                                 <div className="text-4xl md:text-5xl font-display font-bold text-white mb-2 tracking-tight group-hover:text-brand-red transition-colors">

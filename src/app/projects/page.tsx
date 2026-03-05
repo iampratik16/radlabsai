@@ -23,7 +23,7 @@ export default function ProjectsPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                                className="group relative h-full rounded-2xl border border-white/10 bg-white/5 p-8 overflow-hidden hover:border-brand-red/50 transition-colors duration-500 cursor-pointer flex flex-col"
+                                className="card-lift group relative h-full rounded-2xl border border-white/10 bg-white/5 p-8 overflow-hidden hover:border-white/30 transition-colors duration-500 cursor-pointer flex flex-col"
                             >
                                 {/* Background Hover Effect */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-brand-red/0 via-transparent to-transparent group-hover:from-brand-red/10 transition-colors duration-500 z-0" />

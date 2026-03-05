@@ -18,6 +18,7 @@ const navLinks = [
 export function Header() {
     const [isScrolled, setIsScrolled] = React.useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+    const [hoveredLink, setHoveredLink] = React.useState<string | null>(null);
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
@@ -26,26 +27,41 @@ export function Header() {
 
     return (
         <motion.header
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? "bg-black/60 backdrop-blur-xl border-b border-white/10" : "bg-transparent"
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+                ? "bg-black/70 backdrop-blur-2xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+                : "bg-transparent"
                 }`}
         >
             <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between" suppressHydrationWarning>
-                <Link href="/" className="flex items-center gap-3 group">
-                    <div className="relative w-8 h-10 flex items-center justify-center" suppressHydrationWarning>
+                {/* Logo with glow effect */}
+                <Link href="/" className="flex items-center gap-3 group" suppressHydrationWarning>
+                    <motion.div
+                        className="relative w-8 h-10 flex items-center justify-center"
+                        whileHover={{ scale: 1.15, rotate: -5 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                        suppressHydrationWarning
+                    >
+                        {/* Glow ring behind logo */}
+                        <span className="absolute inset-0 rounded-full bg-red-500/30 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500 scale-150" />
                         <Image
                             src="/logo.png"
                             alt="Radlabs Logo"
                             fill
-                            className="object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_10px_rgba(255,26,26,0.6)]"
+                            className="object-contain drop-shadow-[0_0_12px_rgba(255,51,51,0.7)] group-hover:drop-shadow-[0_0_20px_rgba(255,51,51,1)] transition-all duration-500"
                             priority
                         />
-                    </div>
-                    <span className="text-xl font-display font-bold text-white tracking-wide">
+                    </motion.div>
+                    <motion.span
+                        className="text-xl font-bold text-white tracking-wide"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                        whileHover={{ letterSpacing: "0.08em" }}
+                        transition={{ duration: 0.3 }}
+                    >
                         Radlabs
-                    </span>
+                    </motion.span>
                 </Link>
 
                 {/* Desktop Nav */}
@@ -54,61 +70,92 @@ export function Header() {
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="relative text-sm font-medium text-neutral-300 hover:text-white transition-colors py-1 group"
+                            onMouseEnter={() => setHoveredLink(link.name)}
+                            onMouseLeave={() => setHoveredLink(null)}
+                            className="nav-link-glow relative text-sm font-medium text-neutral-300 hover:text-white transition-colors duration-200 py-1"
                         >
                             {link.name}
-                            <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-brand-red -translate-x-1/2 transition-all duration-300 group-hover:w-full rounded-full" />
+                            {/* Animated underline via CSS class */}
                         </Link>
                     ))}
-                    <Link href="/contact" className="relative group">
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-red to-brand-darkred rounded-full blur opacity-0 group-hover:opacity-100 transition duration-500" suppressHydrationWarning />
-                        <Button variant="primary" className="relative bg-white text-black hover:bg-black hover:text-white hover:scale-105 transition-all duration-300 border-none shadow-lg">
-                            <span className="relative z-10 flex items-center gap-2">
-                                Book AI Consultation
-                            </span>
-                        </Button>
+
+                    {/* CTA Button — dark red with chatbot-style rotating ring + particles */}
+                    <Link href="/contact" className="relative" suppressHydrationWarning>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.97 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                        >
+                            <Button
+                                variant="primary"
+                                className="btn-chatbot-effect relative bg-[#E63946] text-white font-bold border border-[#E63946]/60 shadow-[0_0_24px_rgba(230,57,70,0.35)] rounded-full overflow-visible"
+                            >
+                                <div className="btn-particles"><span /><span /><span /><span /><span /><span /><span /><span /></div>
+                                <span className="relative z-10 flex items-center gap-2 uppercase tracking-wider text-xs">
+                                    Book AI Consultation
+                                </span>
+                            </Button>
+                        </motion.div>
                     </Link>
                 </nav>
 
                 {/* Mobile Nav Toggle */}
-                <button
-                    className="md:hidden text-white p-2"
+                <motion.button
+                    className="md:hidden text-white p-2 hover:text-red-400 transition-colors"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
+                    whileTap={{ scale: 0.9 }}
                 >
-                    {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+                    <motion.div
+                        animate={{ rotate: mobileMenuOpen ? 90 : 0 }}
+                        transition={{ duration: 0.25 }}
+                    >
+                        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </motion.div>
+                </motion.button>
             </div>
 
             {/* Mobile Menu */}
-            {mobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="md:hidden bg-black/95 backdrop-blur-3xl border-b border-white/10 px-6 py-8"
-                >
-                    <div className="flex flex-col gap-6">
-                        {navLinks.map((link) => (
+            <motion.div
+                initial={false}
+                animate={mobileMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="md:hidden overflow-hidden bg-black/95 backdrop-blur-3xl border-b border-white/10"
+            >
+                <div className="px-6 py-8 flex flex-col gap-6">
+                    {navLinks.map((link, i) => (
+                        <motion.div
+                            key={link.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={mobileMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                            transition={{ delay: i * 0.07, duration: 0.3 }}
+                        >
                             <Link
-                                key={link.name}
                                 href={link.href}
-                                className="relative text-lg font-medium text-neutral-300 hover:text-white transition-colors py-1 group w-max"
+                                className="nav-link-glow text-lg font-medium text-neutral-300 hover:text-white transition-colors py-1 block w-max"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 {link.name}
-                                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-red transition-all duration-300 group-hover:w-full rounded-full" />
                             </Link>
-                        ))}
-                        <Link href="/contact" className="relative group w-full mt-4" onClick={() => setMobileMenuOpen(false)}>
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-red to-brand-darkred rounded-full blur opacity-0 group-hover:opacity-100 transition duration-500" />
-                            <Button variant="primary" className="relative w-full bg-white text-black hover:bg-black hover:text-white hover:scale-[1.02] transition-all duration-300 border-none shadow-lg">
-                                <span className="relative z-10">Book AI Consultation</span>
-                            </Button>
-                        </Link>
-                    </div>
-                </motion.div>
-            )}
+                        </motion.div>
+                    ))}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                        transition={{ delay: navLinks.length * 0.07, duration: 0.3 }}
+                        className="relative group w-full mt-4"
+                    >
+                        <Button
+                            variant="primary"
+                            className="btn-chatbot-effect relative w-full bg-[#E63946] text-white border border-[#E63946]/60 shadow-[0_0_24px_rgba(230,57,70,0.35)] rounded-full font-bold uppercase tracking-wider overflow-visible"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <div className="btn-particles"><span /><span /><span /><span /><span /><span /><span /><span /></div>
+                            <span className="relative z-10">Book AI Consultation</span>
+                        </Button>
+                    </motion.div>
+                </div>
+            </motion.div>
         </motion.header>
     );
 }

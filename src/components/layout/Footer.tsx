@@ -1,75 +1,103 @@
-import Link from "next/link";
-import { Typography } from "@/components/ui/typography";
-import Image from "next/image";
+import React from 'react';
+import Link from 'next/link';
+import { MOCK_COMPANY_INFO } from '@/data/mock/company';
+import { Linkedin, Twitter, Instagram } from 'lucide-react';
 
 export function Footer() {
+    const currentYear = new Date().getFullYear();
+
+    // Map platform names to lucide icons
+    const getSocialIcon = (platform: string) => {
+        switch (platform.toLowerCase()) {
+            case 'linkedin': return <Linkedin className="w-6 h-6" />;
+            case 'twitter': return <Twitter className="w-6 h-6" />;
+            case 'instagram': return <Instagram className="w-6 h-6" />;
+            default: return null;
+        }
+    };
+
     return (
-        <footer className="bg-black border-t border-white/10 pt-24 pb-12 overflow-hidden relative">
-            <div className="absolute inset-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-50" suppressHydrationWarning></div>
+        <footer className="w-full bg-[var(--color-bg-elevated)] border-t border-[var(--color-border-subtle)] text-[#888888] pt-12 pb-8 px-8 lg:px-16 relative overflow-hidden" role="contentinfo">
+            {/* Giant RADLABS Background Text */}
+            <div className="w-full flex justify-center items-center py-10 md:py-16 select-none relative z-0">
+                <span className="text-[16vw] font-display font-black leading-none tracking-tighter text-shimmer-hover drop-shadow-[0_0_80px_rgba(230,57,70,0.15)] opacity-40 hover:opacity-100 transition-opacity duration-700 cursor-default">
+                    RADLABS
+                </span>
+            </div>
 
-            <div className="max-w-7xl mx-auto px-6" suppressHydrationWarning>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16" suppressHydrationWarning>
-                    <div className="md:col-span-1" suppressHydrationWarning>
-                        <Link href="/" className="flex items-center gap-3 mb-6 group">
-                            <div className="relative w-10 h-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110" suppressHydrationWarning>
-                                <Image
-                                    src="/logo.png"
-                                    alt="Radlabs Logo"
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                            <span className="text-xl font-display font-bold text-white tracking-wide">
-                                Radlabs
-                            </span>
-                        </Link>
-                        <Typography variant="p" className="text-neutral-400 max-w-sm mt-0">
-                            Blending creativity, engineering & innovation to build intelligent systems that accelerate modern business growth.
-                        </Typography>
+            <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 relative z-10">
+
+                {/* Brand Column (Span 4) */}
+                <div className="md:col-span-4 flex flex-col items-start pr-8">
+                    <div className="text-2xl font-serif text-white italic tracking-tight mb-4">
+                        {MOCK_COMPANY_INFO.name}
                     </div>
-
-                    <div>
-                        <h4 className="text-white font-display font-semibold mb-6">Services</h4>
-                        <ul className="flex flex-col gap-4">
-                            <li><Link href="/services/ai" className="text-neutral-400 hover:text-brand-red transition-colors text-sm">Custom AI Architecture</Link></li>
-                            <li><Link href="/services/llm" className="text-neutral-400 hover:text-brand-red transition-colors text-sm">LLM Integration & RAG</Link></li>
-                            <li><Link href="/services/agents" className="text-neutral-400 hover:text-brand-red transition-colors text-sm">Agentic Workflows</Link></li>
-                            <li><Link href="/services/software" className="text-neutral-400 hover:text-brand-red transition-colors text-sm">Software Development</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="text-white font-display font-semibold mb-6">Company</h4>
-                        <ul className="flex flex-col gap-4">
-                            <li><Link href="/about" className="text-neutral-400 hover:text-white transition-colors text-sm">About Us</Link></li>
-                            <li><Link href="/approach" className="text-neutral-400 hover:text-white transition-colors text-sm">Our Approach</Link></li>
-                            <li><Link href="/careers" className="text-neutral-400 hover:text-white transition-colors text-sm">Careers</Link></li>
-                            <li><Link href="/contact" className="text-neutral-400 hover:text-white transition-colors text-sm">Contact</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="text-white font-display font-semibold mb-6">Newsletter</h4>
-                        <p className="text-neutral-400 text-sm mb-4">Insights on enterprise AI and engineering excellence.</p>
-                        <form className="flex gap-2">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-brand-red w-full"
-                            />
-                            <button className="bg-white text-black rounded-full px-4 py-2 text-sm font-medium hover:bg-neutral-200 transition-colors">
-                                Subscribe
-                            </button>
-                        </form>
+                    <p className="font-sans text-sm leading-relaxed mb-8 max-w-sm">
+                        {MOCK_COMPANY_INFO.mission}
+                    </p>
+                    <div className="font-mono text-xs text-[var(--color-fire-neon)] tracking-[0.2em]">
+                        {MOCK_COMPANY_INFO.tagline.toUpperCase()}
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-neutral-500 text-sm" suppressHydrationWarning>© {new Date().getFullYear()} Radlabs Technologies. All rights reserved.</p>
-                    <div className="flex gap-6" suppressHydrationWarning>
-                        <Link href="/privacy" className="text-neutral-500 hover:text-white text-sm transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="text-neutral-500 hover:text-white text-sm transition-colors">Terms of Service</Link>
+                {/* Quick Links (Span 2) */}
+                <div className="md:col-span-2 flex flex-col">
+                    <h4 className="font-mono text-[10px] tracking-widest text-[#555555] uppercase mb-6">Explore</h4>
+                    <nav className="flex flex-col space-y-4">
+                        <Link href="/services" className="link-underline-swipe text-sm hover:text-white transition-colors duration-300">Services</Link>
+                        <Link href="/ai-capabilities" className="link-underline-swipe text-sm hover:text-white transition-colors duration-300">Capabilities</Link>
+                        <Link href="/approach" className="link-underline-swipe text-sm hover:text-white transition-colors duration-300">Process</Link>
+                    </nav>
+                </div>
+
+                {/* Legal & Socials (Span 3) */}
+                <div className="md:col-span-3 flex flex-col">
+                    <h4 className="font-mono text-[10px] tracking-widest text-[#555555] uppercase mb-6">Connect</h4>
+                    <div className="flex flex-row space-x-6 mb-12">
+                        {MOCK_COMPANY_INFO.socialLinks.map((social) => (
+                            <a
+                                key={social.id}
+                                href={social.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="icon-hover text-white hover:text-[var(--color-fire-neon)] transition-all duration-300 flex items-center justify-center p-2 rounded-full border border-white/10 hover:border-[var(--color-fire-neon)]/50 hover:shadow-[0_0_15px_rgba(255,51,51,0.3)]"
+                                aria-label={social.platform}
+                            >
+                                {getSocialIcon(social.platform)}
+                            </a>
+                        ))}
                     </div>
+                </div>
+
+                {/* Start Project CTA (Span 3) */}
+                <div className="md:col-span-3 flex flex-col lg:items-end">
+                    <div className="p-8 border border-[var(--color-border-subtle)] bg-black/50 text-center w-full lg:max-w-[280px]">
+                        <h4 className="font-serif text-lg text-white mb-4">Ready to start?</h4>
+                        <a
+                            href={`mailto:${MOCK_COMPANY_INFO.email}`}
+                            className="font-mono text-xs tracking-widest text-[var(--color-fire-neon)] hover:text-white transition-colors duration-300 block mb-6"
+                        >
+                            {MOCK_COMPANY_INFO.email}
+                        </a>
+                        <Link
+                            href="/contact"
+                            className="inline-block border border-[var(--color-border-red)] text-white font-mono text-xs uppercase tracking-widest py-3 px-6 hover:bg-[var(--color-fire-core)] hover:border-[var(--color-fire-neon)] transition-all duration-300 w-full"
+                        >
+                            Book Intro
+                        </Link>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="max-w-[1920px] mx-auto mt-24 pt-8 border-t border-[var(--color-border-subtle)] flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="font-mono text-[10px] tracking-widest text-[#555555]">
+                    © {currentYear} {MOCK_COMPANY_INFO.name}. All rights reserved.
+                </div>
+                <div className="flex space-x-6">
+                    <Link href="/privacy" className="font-mono text-[10px] tracking-widest hover:text-white transition-colors duration-300">Privacy Policy</Link>
+                    <Link href="/terms" className="font-mono text-[10px] tracking-widest hover:text-white transition-colors duration-300">Terms of Service</Link>
                 </div>
             </div>
         </footer>

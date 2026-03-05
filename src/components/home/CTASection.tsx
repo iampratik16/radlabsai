@@ -251,9 +251,12 @@ export function CTASection() {
                         className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4"
                     >
                         <a href="/contact" className="w-full sm:w-auto">
-                            <Button variant="primary" size="lg" className="w-full sm:w-auto bg-white text-black hover:bg-brand-red hover:text-white transition-all duration-300 group shadow-lg hover:shadow-brand-red/40">
-                                Book a Consultation
-                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            <Button variant="primary" size="lg" className="btn-chatbot-effect w-full sm:w-auto bg-[#E63946] text-white group shadow-[0_0_24px_rgba(230,57,70,0.35)] rounded-full font-bold tracking-wider uppercase overflow-visible border border-[#E63946]/60">
+                                <div className="btn-particles"><span /><span /><span /><span /><span /><span /><span /><span /></div>
+                                <span className="relative z-10 flex items-center gap-2">
+                                    Book a Consultation
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </span>
                             </Button>
                         </a>
 

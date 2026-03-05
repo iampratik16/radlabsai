@@ -149,9 +149,9 @@ export default function ApproachPage() {
                                             <div className={`absolute inset-[-50%] rounded-full bg-gradient-to-br ${step.gradient} blur-[40px] opacity-50 pointer-events-none`} />
 
                                             {/* Icon Container */}
-                                            <div className={`relative w-12 h-12 md:w-20 md:h-20 rounded-2xl bg-black border border-white/20 flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.15)] z-10 overflow-hidden group`}>
+                                            <div className={`card-lift relative w-12 h-12 md:w-20 md:h-20 rounded-2xl bg-black border border-white/20 flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.15)] z-10 overflow-hidden group`}>
                                                 <div className="absolute inset-0 bg-white/5 group-hover:bg-brand-red/10 transition-colors duration-500" />
-                                                <Icon className={`w-6 h-6 md:w-8 md:h-8 ${step.accent} relative z-10 transition-transform duration-500 group-hover:scale-110`} />
+                                                <Icon className={`icon-hover w-6 h-6 md:w-8 md:h-8 ${step.accent} relative z-10 transition-transform duration-500`} />
 
                                                 {/* Corner Accents */}
                                                 <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/50" />

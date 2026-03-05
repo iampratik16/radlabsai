@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, X, Send, ChevronDown, Sparkles } from "lucide-react";
+import { Bot, X, Send, ChevronDown } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 type Role = "bot" | "user";
@@ -246,32 +246,98 @@ export function ChatBot() {
 
     return (
         <>
-            {/* ── Floating trigger button ─────────────────────────────────────────── */}
+            {/* ── Floating trigger button (New design: rotating ring + icon swap + particles) ── */}
             <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100]" suppressHydrationWarning>
                 <AnimatePresence>
                     {!open && (
-                        <motion.button
+                        <motion.div
                             key="fab"
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                            onClick={() => setOpen(true)}
-                            aria-label="Open chat"
-                            className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-3xl bg-gradient-to-br from-brand-red to-red-900 shadow-[0_0_30px_rgba(255,51,51,0.4)] flex items-center justify-center text-white hover:scale-110 hover:shadow-[0_0_50px_rgba(255,51,51,0.8)] hover:-translate-y-2 active:scale-95 transition-all duration-300 border border-white/20 group overflow-hidden"
+                            className="relative"
                         >
-                            {/* Pulse ring */}
-                            {pulse && (
-                                <span className="absolute inset-0 rounded-3xl bg-brand-red animate-ping opacity-40" />
-                            )}
-                            {/* Glass overlay */}
-                            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <style>{`
+                                @keyframes rotate-ring {
+                                    to { transform: rotate(360deg); }
+                                }
+                                @keyframes particle-burst {
+                                    0%   { transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(1); opacity: 1; }
+                                    100% { transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--dist) * -1)) scale(0); opacity: 0; }
+                                }
+                                .chatbot-fab { position: relative; width: 76px; height: 76px; border-radius: 50%; border: none; cursor: pointer; background: #111111; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+                                .chatbot-fab::before {
+                                    content: ''; position: absolute; inset: -5px; border-radius: 50%;
+                                    background: conic-gradient(from 0deg, #E63946, #C1121F, transparent 60%, transparent 80%, #E63946);
+                                    opacity: 0; transition: opacity 0.5s ease;
+                                    animation: rotate-ring 3.2s linear infinite paused; z-index: -1;
+                                }
+                                .chatbot-fab::after {
+                                    content: ''; position: absolute; inset: -24px; border-radius: 50%;
+                                    background: radial-gradient(circle, rgba(230,57,70,0.42) 0%, transparent 70%);
+                                    opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;
+                                    transform: scale(0.6); z-index: -2;
+                                }
+                                .chatbot-fab:hover { transform: scale(1.08); }
+                                .chatbot-fab:hover::before { opacity: 1; animation-play-state: running; }
+                                .chatbot-fab:hover::after { opacity: 0.85; transform: scale(1.15); }
+                                .chatbot-fab-inner { width: 70px; height: 70px; border-radius: 50%; background: #111111; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); transition: border-color 0.4s ease; transform: scale(1); }
+                                .chatbot-fab:hover .chatbot-fab-inner { border-color: rgba(230,57,70,0.35); }
+                                .chatbot-icon-bot, .chatbot-icon-spark { position: absolute; transition: all 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+                                .chatbot-icon-bot { transform: scale(1.2) rotate(0deg); opacity: 1; }
+                                .chatbot-icon-spark { transform: scale(0) rotate(-180deg); opacity: 0; }
+                                .chatbot-fab:hover .chatbot-icon-bot { transform: scale(0) rotate(180deg); opacity: 0; }
+                                .chatbot-fab:hover .chatbot-icon-spark { transform: scale(1.2) rotate(0deg); opacity: 1; }
+                                .chatbot-particles { position: absolute; inset: 0; pointer-events: none; }
+                                .chatbot-particles span { position: absolute; width: 4px; height: 4px; background: #E63946; border-radius: 50%; top: 50%; left: 50%; animation: particle-burst 1.2s ease-out infinite paused; }
+                                .chatbot-fab:hover .chatbot-particles span { animation-play-state: running; }
+                                .chatbot-particles span:nth-child(1) { animation-delay: 0s;    --angle: 0deg;   --dist: 45px; }
+                                .chatbot-particles span:nth-child(2) { animation-delay: 0.1s;  --angle: 45deg;  --dist: 40px; }
+                                .chatbot-particles span:nth-child(3) { animation-delay: 0.05s; --angle: 90deg;  --dist: 48px; }
+                                .chatbot-particles span:nth-child(4) { animation-delay: 0.15s; --angle: 135deg; --dist: 38px; }
+                                .chatbot-particles span:nth-child(5) { animation-delay: 0.08s; --angle: 180deg; --dist: 42px; }
+                                .chatbot-particles span:nth-child(6) { animation-delay: 0.12s; --angle: 225deg; --dist: 46px; }
+                                .chatbot-particles span:nth-child(7) { animation-delay: 0.03s; --angle: 270deg; --dist: 38px; }
+                                .chatbot-particles span:nth-child(8) { animation-delay: 0.18s; --angle: 315deg; --dist: 48px; }
+                                .chatbot-tooltip { position: absolute; right: 90px; top: 50%; transform: translateY(-50%) translateX(8px); background: #1a1a1a; border: 1px solid rgba(255,255,255,0.08); padding: 10px 18px; border-radius: 12px; font-family: system-ui, sans-serif; font-size: 14px; font-weight: 500; color: #f0f0f0; white-space: nowrap; opacity: 0; pointer-events: none; transition: all 0.35s cubic-bezier(0.175,0.885,0.32,1.275); }
+                                .chatbot-tooltip::after { content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%) rotate(45deg); width: 12px; height: 12px; background: #1a1a1a; border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+                                .chatbot-fab:hover .chatbot-tooltip { opacity: 1; transform: translateY(-50%) translateX(0); }
+                                @media (max-width: 480px) { .chatbot-fab { width: 64px; height: 64px; } .chatbot-fab-inner { width: 60px; height: 60px; } .chatbot-tooltip { display: none; } }
+                            `}</style>
 
-                            <div className="relative flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
-                                <Bot className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-lg" />
-                                <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-300 absolute -top-2 -right-2 animate-pulse drop-shadow-md" />
-                            </div>
-                        </motion.button>
+                            {/* Pulse ring before first open */}
+                            {pulse && <span className="absolute inset-0 rounded-full animate-ping" style={{ background: 'rgba(230,57,70,0.35)', borderRadius: '50%' }} />}
+
+                            <button
+                                className="chatbot-fab"
+                                onClick={() => setOpen(true)}
+                                aria-label="Open AI Chat"
+                            >
+                                <div className="chatbot-fab-inner">
+                                    {/* Default: bot icon */}
+                                    <svg className="chatbot-icon-bot" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
+                                        <circle cx="9" cy="13" r="1.25" fill="#E63946" stroke="none" />
+                                        <circle cx="15" cy="13" r="1.25" fill="#E63946" stroke="none" />
+                                        <path d="M10 17c.5.3 1.2.5 2 .5s1.5-.2 2-.5" />
+                                    </svg>
+                                    {/* Hover: lightning bolt */}
+                                    <svg className="chatbot-icon-spark" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#E63946" opacity="0.92" />
+                                    </svg>
+                                </div>
+
+                                {/* Particle burst */}
+                                <div className="chatbot-particles">
+                                    <span /><span /><span /><span />
+                                    <span /><span /><span /><span />
+                                </div>
+
+                                {/* Tooltip */}
+                                <div className="chatbot-tooltip">Ask Radlabs AI</div>
+                            </button>
+                        </motion.div>
                     )}
                 </AnimatePresence>
 

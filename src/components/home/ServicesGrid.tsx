@@ -73,18 +73,10 @@ const itemVariants = {
 
 export function ServicesGrid() {
     return (
-        <section className="py-32 relative" id="services">
+        <section className="pb-32 relative" id="services">
             <div className="max-w-7xl mx-auto px-6">
 
-                {/* Section header */}
-                <div className="flex flex-col items-center mb-16 text-center">
-                    <Typography variant="h2" className="text-white">
-                        What We Build
-                    </Typography>
-                    <Typography variant="p" className="max-w-2xl mt-4">
-                        We deliver production-ready intelligent systems — combining beautiful interfaces with serious computational power.
-                    </Typography>
-                </div>
+
 
                 {/* ── Hero row: AI + AI Consulting ─────────────────────────── */}
                 <motion.div
@@ -98,7 +90,7 @@ export function ServicesGrid() {
                         const Icon = svc.icon;
                         return (
                             <motion.div key={svc.title} variants={itemVariants} className={svc.span}>
-                                <Card className="h-full group relative overflow-hidden border-brand-red/30 bg-white/[0.04] hover:bg-white/[0.08] hover:border-brand-red/60 transition-all duration-500">
+                                <Card className="card-lift h-full group relative overflow-hidden border-brand-red/30 bg-white/[0.04] hover:bg-white/[0.08] hover:border-brand-red/60 transition-all duration-500">
                                     {/* Ambient glow */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-brand-red/10 via-transparent to-transparent pointer-events-none" />
                                     <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 to-brand-darkred/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -106,7 +98,7 @@ export function ServicesGrid() {
                                     <CardHeader>
                                         <div className="flex items-start justify-between mb-6">
                                             <div className="w-14 h-14 rounded-2xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-red/20 transition-all duration-300">
-                                                <Icon className="w-7 h-7 text-brand-red" />
+                                                <Icon className="icon-hover w-7 h-7 text-brand-red" />
                                             </div>
                                             <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-red bg-brand-red/10 border border-brand-red/20 px-3 py-1 rounded-full">
                                                 <Star className="w-2.5 h-2.5" />
@@ -161,11 +153,11 @@ export function ServicesGrid() {
                         const isWide = index === 0;
                         return (
                             <motion.div key={svc.title} variants={itemVariants} className={isWide ? "md:col-span-2 lg:col-span-1" : ""}>
-                                <Card className="h-full group hover:border-brand-red/40 hover:bg-white/10 transition-all duration-500 overflow-hidden relative">
+                                <Card className="card-lift h-full group hover:border-brand-red/40 hover:bg-white/10 transition-all duration-500 overflow-hidden relative">
                                     <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 to-brand-darkred/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                     <CardHeader>
                                         <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:border-brand-red/40 transition-all duration-300">
-                                            <Icon className="w-5 h-5 text-brand-red" />
+                                            <Icon className="icon-hover w-5 h-5 text-brand-red" />
                                         </div>
                                         <CardTitle className="text-white group-hover:text-brand-red transition-colors duration-300 text-base">
                                             {svc.title}

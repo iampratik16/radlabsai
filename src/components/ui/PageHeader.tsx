@@ -21,7 +21,7 @@ export function PageHeader({ title, subtitle }: PageHeaderProps) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <Typography variant="h1" className="mb-6 tracking-tight drop-shadow-md">
+                    <Typography variant="h1" className="text-shimmer-hover mb-6 tracking-tight drop-shadow-md">
                         {title}
                     </Typography>
                     <Typography variant="p" className="text-xl md:text-2xl text-neutral-400 font-sans max-w-3xl mx-auto leading-relaxed">

@@ -1,33 +1,669 @@
 @import "tailwindcss";
 
-:root {
-  --background: #030305;
-  --foreground: #fafafa;
-}
+@theme {
+  /* Colors */
+  --color-brand-black: #050505;
+  --color-brand-charcoal: #121212;
+  --color-brand-gray: #2A2A2A;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand-red: #ff1a1a;
-  --color-brand-darkred: #8b0000;
-  --color-glass-bg: rgba(255, 255, 255, 0.03);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-fire-neon: #FF3333;
+  --color-fire-deep: #CC0000;
+
+  --color-text-primary: #F5F5F0;
+  --color-text-secondary: #A3A3A3;
+  --color-text-muted: #666666;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-red: rgba(255, 51, 51, 0.2);
+
+  /* Fonts */
   --font-sans: var(--font-inter);
-  --font-display: var(--font-space-grotesk);
+  --font-serif: var(--font-instrument);
+  --font-mono: var(--font-jetbrains);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  body {
+    @apply bg-[var(--color-brand-black)] text-[var(--color-text-primary)] antialiased font-sans selection:bg-[var(--color-fire-neon)] selection:text-white;
+    overflow-x: hidden;
+  }
 }
 
-.glass-panel {
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-glass-border);
-  border-radius: 1rem;
+/* ─── Marquee ─── */
+@layer utilities {
+  .animate-marquee {
+    animation: marquee linear infinite;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ─── Scan / Grain ─── */
+@keyframes scan {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes verticalScan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* ─── Shimmer sweep ─── */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* ─── Glow pulse (red aura) ─── */
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(255, 51, 51, 0.3), 0 0 30px rgba(255, 51, 51, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 35px rgba(255, 51, 51, 0.7), 0 0 60px rgba(255, 51, 51, 0.3);
+  }
+}
+
+/* ─── Float / levitate ─── */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ─── Neon border trace ─── */
+@keyframes border-trace {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ─── Ripple ring (click/hover feedback) ─── */
+@keyframes ripple-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ─── Fade up entrance ─── */
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Text flicker (neon sign) ─── */
+@keyframes neon-flicker {
+
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+
+  20%,
+  24%,
+  55% {
+    opacity: 0.4;
+  }
+}
+
+/* ─── Gradient morph ─── */
+@keyframes gradient-morph {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ─── Scale bounce ─── */
+@keyframes scale-bounce {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.08);
+  }
+
+  60% {
+    transform: scale(0.97);
+  }
+}
+
+/* ─── Chatbot Button Effect (Rotating Ring + Particles) ─── */
+@keyframes rotate-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes particle-burst {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--dist) * -1)) scale(0);
+    opacity: 0;
+  }
+}
+
+.btn-chatbot-effect {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-chatbot-effect::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, #E63946, #C1121F, transparent 60%, transparent 80%, #E63946);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: rotate-ring 3s linear infinite paused;
+  z-index: -1;
+}
+
+.btn-chatbot-effect:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.btn-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.btn-particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #E63946;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  animation: particle-burst 1.2s ease-out infinite paused;
+}
+
+.btn-chatbot-effect:hover .btn-particles span {
+  animation-play-state: running;
+}
+
+.btn-particles span:nth-child(1) {
+  animation-delay: 0s;
+  --angle: 0deg;
+  --dist: 60px;
+}
+
+.btn-particles span:nth-child(2) {
+  animation-delay: 0.1s;
+  --angle: 45deg;
+  --dist: 55px;
+}
+
+.btn-particles span:nth-child(3) {
+  animation-delay: 0.05s;
+  --angle: 90deg;
+  --dist: 65px;
+}
+
+.btn-particles span:nth-child(4) {
+  animation-delay: 0.15s;
+  --angle: 135deg;
+  --dist: 50px;
+}
+
+.btn-particles span:nth-child(5) {
+  animation-delay: 0.08s;
+  --angle: 180deg;
+  --dist: 60px;
+}
+
+.btn-particles span:nth-child(6) {
+  animation-delay: 0.12s;
+  --angle: 225deg;
+  --dist: 65px;
+}
+
+.btn-particles span:nth-child(7) {
+  animation-delay: 0.03s;
+  --angle: 270deg;
+  --dist: 55px;
+}
+
+.btn-particles span:nth-child(8) {
+  animation-delay: 0.18s;
+  --angle: 315deg;
+  --dist: 65px;
+}
+
+/* ─── Utilities ─── */
+@layer utilities {
+  .animate-scanline {
+    animation: scanline 2s linear infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.2s ease-in-out infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2.5s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
+  }
+
+  .animate-ripple {
+    animation: ripple-ring 0.7s ease-out forwards;
+  }
+
+  .animate-gradient {
+    animation: gradient-morph 4s ease infinite;
+    background-size: 200% 200%;
+  }
+}
+
+/* ─── Reusable utility classes ─── */
+@utility glass-panel {
+  @apply bg-[#121212]/80 backdrop-blur-md border border-[var(--color-border-subtle)];
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-[#A3A3A3];
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ─── Hover glow card ─── */
+@utility hover-glow-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 40px rgba(255, 51, 51, 0.15), 0 0 0 1px rgba(255, 51, 51, 0.2);
+    border-color: rgba(255, 51, 51, 0.3);
+  }
+}
+
+/* ─── Shimmer button ─── */
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.btn-shimmer:hover::after {
+  transform: translateX(100%);
+}
+
+/* ─── Nav link glow underline ─── */
+.nav-link-glow {
+  position: relative;
+}
+
+.nav-link-glow::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-fire-neon);
+  box-shadow: 0 0 8px var(--color-fire-neon);
+  transform: translateX(-50%);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 99px;
+}
+
+.nav-link-glow:hover::after {
+  width: 100%;
+}
+
+/* ─── Card shimmer border ─── */
+.card-border-animate {
+  position: relative;
+  z-index: 0;
+}
+
+.card-border-animate::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255, 51, 51, 0.5), transparent);
+  background-size: 200% 100%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  animation: border-trace 2s linear infinite;
+}
+
+.card-border-animate:hover::before {
+  opacity: 1;
+}
+
+/* ─── Touch-Device Active States ─── */
+/* On devices with no hover capability (phones, tablets), convert hover effects to :active (tap) effects */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Buttons: mirror hover glow/shadow on tap */
+  a:active,
+  button:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Bento Cards: mirror hover border, lift, shadow on tap */
+  .bento-card:active {
+    border-color: rgba(255, 51, 51, 0.2) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -15px rgba(255, 51, 51, 0.2);
+  }
+
+  /* Card group-hover effects on tap */
+  .bento-card:active .absolute {
+    opacity: 1;
+  }
+
+  /* Why Us Cards: mirror the reveal glow on tap */
+  .why-card:active {
+    border-color: rgba(255, 51, 51, 0.3) !important;
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(255, 51, 51, 0.15);
+  }
+
+  /* Tech pills: mirror hover scale/glow on tap */
+  .tech-pill:active {
+    color: white !important;
+    border-color: var(--color-fire-neon) !important;
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+    background: rgba(204, 0, 0, 0.2) !important;
+    z-index: 20;
+  }
+
+  /* Tech cards: subtle scale on tap */
+  .tech-card:active {
+    transform: perspective(1000px) scale3d(1.02, 1.02, 1.02);
+  }
+
+  /* Capability items: subtle highlight on tap */
+  .capability-item:active {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 51, 51, 0.2) !important;
+  }
+
+  /* Process nodes: glow on tap */
+  .process-card:active {
+    border-color: rgba(255, 51, 51, 0.3) !important;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.15);
+  }
+
+  /* All group-hover targets: also activate on group:active (tap) */
+  .group:active .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+
+  .group:active .group-hover\:text-white {
+    color: white;
+  }
+
+  .group:active .group-hover\:text-\[var\(--color-fire-neon\)\] {
+    color: var(--color-fire-neon);
+  }
+
+  .group:active .group-hover\:border-\[var\(--color-border-red\)\] {
+    border-color: rgba(255, 51, 51, 0.2);
+  }
+
+  .group:active .group-hover\:bg-\[var\(--color-fire-deep\)\]\/20 {
+    background: rgba(204, 0, 0, 0.2);
+  }
+
+  .group:active .group-hover\:rotate-12 {
+    transform: rotate(12deg);
+  }
+
+  .group:active .group-hover\:scale-110 {
+    transform: scale(1.1);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM HOVER EFFECTS — Global utilities
+   ═══════════════════════════════════════════ */
+
+/* ─── Magnetic link underline swipe ─── */
+.link-underline-swipe {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline-swipe::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--color-fire-neon);
+  box-shadow: 0 0 6px var(--color-fire-neon);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-underline-swipe:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── Icon pop hover ─── */
+.icon-hover {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
+}
+
+.icon-hover:hover {
+  transform: scale(1.18) rotate(-6deg);
+  color: var(--color-fire-neon);
+}
+
+/* ─── Red glow button (for any plain button/anchor) ─── */
+.btn-red-glow {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.btn-red-glow::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, #ff3333, #cc0000, transparent 50%, transparent 70%, #ff3333);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  animation: rotate-ring 3s linear infinite paused;
+}
+
+.btn-red-glow:hover {
+  box-shadow: 0 0 28px rgba(255, 51, 51, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-red-glow:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* ─── Lifting card (used on project/service cards) ─── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 20px 60px -10px rgba(255, 51, 51, 0.18), 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 51, 51, 0.25) !important;
+}
+
+/* ─── Text shimmer on hover ─── */
+.text-shimmer-hover {
+  background: linear-gradient(90deg, #fff 0%, #ff3333 50%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: background-position 0.5s ease;
+}
+
+.text-shimmer-hover:hover {
+  background-position: right center;
+}
+
+/* ─── Focus ring (accessible) ─── */
+:focus-visible {
+  outline: 2px solid var(--color-fire-neon);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   INSTANT PAGE TRANSITIONS (View Transitions)
+   ═══════════════════════════════════════════ */
+::view-transition-old(root) {
+  animation: 180ms ease-out both page-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms ease-in both page-in;
+}
+
+@keyframes page-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes page-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

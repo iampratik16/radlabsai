@@ -9,7 +9,7 @@ export default function ServicesPage() {
                 title="What We Build"
                 subtitle="From resilient intelligent systems to compelling digital experiences. We engineer software and brands for performance, clarity, and exponential growth."
             />
-            <div className="pt-8 pb-32">
+            <div className="pb-32">
                 <ServicesGrid />
             </div>
             <CTASection />

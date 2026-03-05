@@ -81,8 +81,8 @@ export default function ContactPage() {
 
                     <div className="space-y-8" suppressHydrationWarning>
                         <div className="flex items-center gap-4 group" suppressHydrationWarning>
-                            <div className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-brand-red/10 group-hover:border-brand-red/30 transition-all" suppressHydrationWarning>
-                                <Mail className="w-5 h-5 text-neutral-400 group-hover:text-brand-red" />
+                            <div className="card-lift w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-brand-red/10 group-hover:border-[var(--color-fire-neon)]/50 transition-all" suppressHydrationWarning>
+                                <Mail className="icon-hover w-5 h-5 text-neutral-400 group-hover:text-brand-red" />
                             </div>
                             <div suppressHydrationWarning>
                                 <p className="text-sm text-neutral-500 font-display tracking-widest uppercase mb-1">Email Us</p>
@@ -93,8 +93,8 @@ export default function ContactPage() {
                         </div>
 
                         <div className="flex items-center gap-4 group" suppressHydrationWarning>
-                            <div className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-brand-red/10 group-hover:border-brand-red/30 transition-all" suppressHydrationWarning>
-                                <MapPin className="w-5 h-5 text-neutral-400 group-hover:text-brand-red" />
+                            <div className="card-lift w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-brand-red/10 group-hover:border-[var(--color-fire-neon)]/50 transition-all" suppressHydrationWarning>
+                                <MapPin className="icon-hover w-5 h-5 text-neutral-400 group-hover:text-brand-red" />
                             </div>
                             <div>
                                 <p className="text-sm text-neutral-500 font-display tracking-widest uppercase mb-1">Location</p>

@@ -101,7 +101,7 @@ export function AICapabilities() {
                                 >
                                     <div className="flex items-center gap-4 mb-4">
                                         <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.1)] backdrop-blur-md">
-                                            <Icon className="w-8 h-8 text-brand-red" />
+                                            <Icon className="icon-hover w-8 h-8 text-brand-red" />
                                         </div>
                                         <span className="text-neutral-500 font-display font-bold tracking-[0.2em] text-xl">
                                             0{index + 1}
@@ -116,18 +116,7 @@ export function AICapabilities() {
                                         {cap.description}
                                     </p>
 
-                                    <div className="mt-8 pt-8 border-t border-white/10 border-dashed">
-                                        <div className="flex items-center gap-4 text-sm font-medium text-brand-red uppercase tracking-widest hover:text-white transition-colors cursor-pointer group">
-                                            <span>Explore Architecture</span>
-                                            <motion.div
-                                                animate={{ x: [0, 5, 0] }}
-                                                transition={{ duration: 1.5, repeat: Infinity }}
-                                                className="w-6 h-px bg-current relative"
-                                            >
-                                                <div className="absolute right-0 top-1/2 -translate-y-1/2 border-solid border-l-4 border-y-4 border-l-current border-y-transparent w-0 h-0" />
-                                            </motion.div>
-                                        </div>
-                                    </div>
+
                                 </motion.div>
 
                                 {/* Visual Diagram Side (Completely Redesigned for Clarity & Coolness) */}
